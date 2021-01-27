@@ -16,8 +16,8 @@ export default function Dashboard() {
             history.pushState('/login');
         } catch {
             setError('Failed to log out')
-        }
-    }
+        };
+    };
 
     return (
         <>
@@ -33,5 +33,5 @@ export default function Dashboard() {
                 <Button variant="link" onClick={handleLogout}>Log Out</Button>
             </div>
         </>
-    )
-}
+    );
+};

@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Form, Button, Card, Alert } from 'react-bootstrap';
 import { useAuth } from '../contexts/AuthContext';
 import { Link, useHistory } from 'react-router-dom';
@@ -24,11 +24,11 @@ export default function UpdateProfile() {
         setError("");
 
         if (emailRef.current.value !== currentUser.email) {
-            promises.push(updateEmail(emailRef.current.value))
-        }
+            promises.push(updateEmail(emailRef.current.value));
+        };
         if (passwordRef.current.value) {
-            promises.push(updatePassword(passwordRef.current.value))
-        }
+            promises.push(updatePassword(passwordRef.current.value));
+        };
 
         Promise.all(promises).then(() => {
             history.push('/');
