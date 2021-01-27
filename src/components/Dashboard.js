@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Card, Button, Alert } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown, Alert, Container, Image } from 'react-bootstrap';
 import { useAuth } from '../contexts/AuthContext';
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 export default function Dashboard() {
     const [error, setError] = useState("");
@@ -15,23 +15,41 @@ export default function Dashboard() {
             await logout();
             history.pushState('/login');
         } catch {
-            setError('Failed to log out')
+            setError('Failed to log out');
         };
     };
 
     return (
         <>
-            <Card>
-                <Card.Body>
-                    <h2 className="text-center mb-4">Profile</h2>
-                    {error && <Alert variant="danger">{error}</Alert>}
-                    <strong>Email: </strong>{currentUser.email}
-                    <Link to="/update-profile" className="btn btn-primary w-100 mt-3">Update Profile</Link>
-                </Card.Body>
-            </Card>
-            <div className="w-100 text-center mt-2">
-                <Button variant="link" onClick={handleLogout}>Log Out</Button>
-            </div>
+            <Navbar bg="dark" variant="dark">
+                <Navbar.Brand style={{ paddingLeft: "17px" }}>
+                    <img
+                        src="/logoDash.png"
+                        width="30"
+                        height="30"
+                        className="d-inline-block align-top"
+                        alt="App logo"
+                    />{' '}
+                    Flatlife
+                </Navbar.Brand>
+                {error && <Alert variant="danger">{error}</Alert>}
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Nav>
+                <Nav.Link href="/add-food">Add food</Nav.Link>
+                </Nav>
+                <Navbar.Collapse className="justify-content-end">
+                    <Nav>
+                        <NavDropdown title={currentUser.displayName} id="basic-nav-dropdown" style={{ paddingRight: "17px" }}>
+                            <NavDropdown.Item href="#action/3.1">x</NavDropdown.Item>
+                            <NavDropdown.Item href="#action/3.2">x</NavDropdown.Item>
+                            <NavDropdown.Item href="/update-profile">Settings</NavDropdown.Item>
+                            <NavDropdown.Divider />
+                            <NavDropdown.Item onClick={() => { handleLogout(); }}>Log Out</NavDropdown.Item>
+                        </NavDropdown>
+                    </Nav>
+                </Navbar.Collapse>
+            </Navbar>
+            <Image src="https://i.imgur.com/0r7qN8U.png" fluid />
         </>
     );
 };
