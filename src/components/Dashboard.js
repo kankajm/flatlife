@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Navbar, Nav, NavDropdown, Alert, Container, Image } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown, Alert } from 'react-bootstrap';
 import { useAuth } from '../contexts/AuthContext';
 import { useHistory } from "react-router-dom";
 
@@ -16,6 +16,14 @@ export default function Dashboard() {
             history.pushState('/login');
         } catch {
             setError('Failed to log out');
+        };
+    };
+
+    function fixName() {
+        if (currentUser.displayName === null) {
+            return "No name";
+        } else {
+            return currentUser.displayName;
         };
     };
 
@@ -39,7 +47,7 @@ export default function Dashboard() {
                 </Nav>
                 <Navbar.Collapse className="justify-content-end">
                     <Nav>
-                        <NavDropdown title={currentUser.displayName} id="basic-nav-dropdown" style={{ paddingRight: "17px" }}>
+                        <NavDropdown title={fixName()} id="basic-nav-dropdown" style={{ paddingRight: "17px" }}>
                             <NavDropdown.Item href="#action/3.1">x</NavDropdown.Item>
                             <NavDropdown.Item href="#action/3.2">x</NavDropdown.Item>
                             <NavDropdown.Item href="/update-profile">Settings</NavDropdown.Item>
@@ -49,7 +57,6 @@ export default function Dashboard() {
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
-            <Image src="https://i.imgur.com/0r7qN8U.png" fluid />
         </>
     );
 };
